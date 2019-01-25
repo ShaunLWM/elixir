@@ -1,0 +1,17 @@
+{
+  "name": "fusia",
+  "version": "0.0.1",
+  "main": "./modules/Fusia.js",
+  "repository": "https://github.com/ShaunLWM/fusia.git",
+  "author": "ShaunLWM",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "query-string": "^6.2.0",
+    "request": "^2.88.0",
+    "tough-cookie-filestore": "^0.0.1"
+  },
+  "engines": {
+    "node": ">= 7.6"
+  }
+}
