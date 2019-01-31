@@ -22,6 +22,7 @@ class Fusia {
         let j = request.jar(new FileCookieStore(this.cookieFile));
         this.request = request.defaults({ jar: j });
         this.csrfToken = null;
+        this.rolloutHash = 1;
         this.defaultRequestOptions = {
             headers: {
                 "Accept-Language": "en-US,en-SG;q=0.9,en;q=0.8",
@@ -88,6 +89,14 @@ class Fusia {
 
         return id;
     }
+    /**
+     * Set rollouthash on header
+     *
+     * @memberof Fusia
+     */
+    setRolloutHash() {
+        this.defaultRequestOptions["headers"]["X-Instagram-AJAX"] = this.rolloutHash;
+    }
 
     /**
      *
@@ -108,6 +117,8 @@ class Fusia {
                 this.debugLog("Logging in for the first time..");
                 let options = Object.assign(this.defaultRequestOptions);
                 options["url"] = "https://www.instagram.com/accounts/login/ajax/";
+                this.rolloutHash = parsedConfig["rollout_hash"];
+                this.setRolloutHash();
                 this.csrfToken = parsedConfig["config"]["csrf_token"];
                 options["headers"]["X-CSRFToken"] = this.csrfToken;
                 this.debugLog(`Login Token: ${this.csrfToken}`);
