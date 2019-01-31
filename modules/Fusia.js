@@ -700,6 +700,7 @@ class Fusia {
         let options = Object.assign(this.defaultRequestOptions);
         options["url"] = "https://www.instagram.com/create/upload/photo/";
         options["headers"]["X-CSRFToken"] = this.csrfToken;
+        options["headers"]["Referer"] = "https://www.instagram.com/create/crop/";
         options["json"] = true;
         options["formData"] = {
             upload_id: Math.round((new Date()).getTime()),
@@ -711,9 +712,12 @@ class Fusia {
         let parseInitial = await this.fetchPage({ options, isPost: true });
         let upload_id = parseInitial["upload_id"];
         options["url"] = "https://www.instagram.com/create/configure/";
+        options["headers"]["Referer"] = 'https://www.instagram.com/create/details/'
         options["form"] = {
             upload_id,
-            caption
+            caption,
+            retry_timeout: "",
+            custom_accessibility_caption: ""
         };
 
         delete options["formData"];
