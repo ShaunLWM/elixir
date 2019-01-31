@@ -725,6 +725,23 @@ class Fusia {
     }
 
     /**
+     * Delete post. Login required
+     *
+     * @param {*} mediaId
+     * @returns boolean
+     * @memberof Fusia
+     */
+    async deletePost(mediaId) {
+        let options = Object.assign(this.defaultRequestOptions);
+        mediaId = this.sanitiseMediaId(mediaId);
+        options["url"] = `https://www.instagram.com/create/${mediaId}/delete/`;
+        options["headers"]["X-CSRFToken"] = this.csrfToken;
+        options["json"] = true;
+        let results = await this.fetchPage({ options, isPost: true });
+        return results["status"] === "ok";
+    }
+
+    /**
      * Delete a comment. Login required.
      *
      * @param {*} { mediaId, commentId }
