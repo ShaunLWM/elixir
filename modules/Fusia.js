@@ -289,7 +289,7 @@ class Fusia {
         }
 
         let query = {
-            query_hash: "13ab8e6f3d19ee05e336ea3bd37ef12b",
+            query_hash: "3f01472fb28fb8aca9ad9dbc9d4578ff",
             variables: JSON.stringify(variables)
         }
 
@@ -827,7 +827,8 @@ class Fusia {
 
         let variables = {
             tag_name: tag.toLowerCase(),
-            first: count
+            first: count,
+            show_ranked: false
         };
 
         if (cursor !== null) {
@@ -835,7 +836,7 @@ class Fusia {
         }
 
         let query = {
-            query_hash: "faa8d9917120f16cec7debbd3f16929d",
+            query_hash: "f92f56d47dc7a55b606908374b43a314",
             variables: JSON.stringify(variables)
         }
 
@@ -878,7 +879,7 @@ class Fusia {
         }
 
         let query = {
-            query_hash: "ac38b90f0f3981c42092016a37c59bf7",
+            query_hash: "1b84447a4d8b6d6d0426fefb34514485",
             variables: JSON.stringify(variables)
         }
 
