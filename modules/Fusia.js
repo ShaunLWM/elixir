@@ -898,6 +898,69 @@ class Fusia {
             throw new Error(error);
         }
     }
+
+    async _story_feed({ reel_ids = [], tag_names = [], location_ids = [] }) {
+        let variables = {
+            reel_ids,
+            location_ids,
+            tag_names,
+            precomposed_overlay: false,
+            show_story_viewer_list: true,
+            story_viewer_fetch_count: 50,
+            story_viewer_cursor: "",
+        }
+
+        let query = {
+            query_hash: "eb1918431e946dd39bf8cf8fb870e426",
+            variables: JSON.stringify(variables)
+        }
+
+        let options = Object.assign(this.defaultRequestOptions);
+        options["url"] = `${GRAPHQL_API_URL}?${qs.stringify(query)}`;
+        options["headers"]["X-CSRFToken"] = this.csrfToken;
+        options["json"] = true;
+        try {
+            let parsed = await this.fetchPage({ options });
+            fs.writeFileSync("./story_feed.json", JSON.stringify(parsed));
+            if (typeof parsed["data"] === "undefined" || typeof parsed["data"]["reels_media"][0] === "undefined" || parsed["status"] !== "ok") {
+                throw new Error("404 Not Found");
+            }
+
+            return parsed["data"]["reels_media"][0];
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    /**
+     * Get the stories feed for the specified tag
+     *
+     * @param {*} tag
+     * @returns
+     * @memberof Fusia
+     */
+    async getTagStoryFeed(tag_names) {
+        if (!Array.isArray(tag_names)) {
+            throw new Error("tag_names must be an array")
+        }
+
+        return await this._story_feed({ tag_names });
+    }
+
+    /**
+     * Get the stories feed for the specified location ID
+     *
+     * @param {*} location_id
+     * @returns
+     * @memberof Fusia
+     */
+    async getLocationStoryFeed(location_ids) {
+        if (!Array.isArray(location_ids)) {
+            throw new Error("location_ids must be an array")
+        }
+
+        return await this._story_feed({ location_ids });
+    }
 }
 
 module.exports = Fusia;
