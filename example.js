@@ -1,5 +1,5 @@
-const Fusia = require('./modules/Fusia'); //or require('fusia');
-let fusia = new Fusia({ username: '', password: '', debug: true });
+const Fusia = require("./modules/Fusia"); //or require("fusia");
+let fusia = new Fusia({ username: "", password: "", debug: true });
 (async () => {
     try {
         await fusia.login();
