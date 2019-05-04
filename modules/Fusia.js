@@ -602,7 +602,7 @@ class Fusia {
     }
 
     /**
-     *  (Un)Follow user
+     *  (Un)Follow user. Login Required
      * 
      * @param {*} { id, isFollow = true }
      * @returns
